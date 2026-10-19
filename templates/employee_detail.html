@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>{{ employee.name }}</h2>
+            <p class="text-muted mb-0">Employee details</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'employee_list' %}" class="btn btn-secondary">Back to Employees</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Employee ID</dt><dd class="col-sm-9">{{ employee.employee_id }}</dd>
+                <dt class="col-sm-3">Email</dt><dd class="col-sm-9">{{ employee.email }}</dd>
+                <dt class="col-sm-3">Phone</dt><dd class="col-sm-9">{{ employee.phone }}</dd>
+                <dt class="col-sm-3">Department</dt><dd class="col-sm-9">{{ employee.department.name }}</dd>
+                <dt class="col-sm-3">Designation</dt><dd class="col-sm-9">{{ employee.designation.name }}</dd>
+                <dt class="col-sm-3">Joining Date</dt><dd class="col-sm-9">{{ employee.joining_date|date:"d-m-Y" }}</dd>
+                <dt class="col-sm-3">Employment Type</dt><dd class="col-sm-9">{{ employee.employment_type }}</dd>
+                <dt class="col-sm-3">Salary</dt><dd class="col-sm-9">&#8377;{{ employee.salary }}</dd>
+                <dt class="col-sm-3">Address</dt><dd class="col-sm-9">{{ employee.address|linebreaksbr }}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock %}

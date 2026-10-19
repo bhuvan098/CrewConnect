@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/leave_calendar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid leave-calendar-page">
+	<div class="calendar-toolbar">
+		<a class="btn btn-outline-secondary" href="{% url 'leave_calendar' %}?year={{ previous_month.year }}&month={{ previous_month.month }}">&larr; Previous</a>
+		<div class="text-center">
+			<p class="calendar-eyebrow mb-1">Leave overview</p>
+			<h2 class="mb-1">{{ month_name }}</h2>
+		</div>
+		<a class="btn btn-outline-secondary" href="{% url 'leave_calendar' %}?year={{ next_month.year }}&month={{ next_month.month }}">Next &rarr;</a>
+	</div>
+
+	<div class="calendar-card">
+		<div class="table-responsive">
+			<table class="table calendar-table mb-0">
+				<thead>
+					<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+				</thead>
+				<tbody>
+					{% for week in weeks %}
+					<tr>
+						{% for day in week %}
+						<td class="calendar-day {% if not day.in_month %}outside-month{% endif %} {% if day.is_weekend %}weekend{% endif %} {% if day.holiday_name %}holiday{% endif %}">
+							<div class="day-number">{{ day.date.day }}</div>
+							{% if day.holiday_name %}<div class="holiday-label"><i class="bi bi-stars"></i> {{ day.holiday_name }}</div>
+							{% elif day.is_weekend %}<div class="weekend-label">Weekend</div>{% endif %}
+							{% for leave in day.leaves %}<span class="badge {% if leave.status == 'Approved' %}bg-success{% else %}bg-warning text-dark{% endif %} d-block text-start mt-1">{{ leave.get_leave_type_display }}</span>{% endfor %}
+						</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="calendar-legend" aria-label="Calendar legend">
+		<span><i class="legend-swatch holiday-swatch"></i> Public holiday</span>
+		<span><i class="legend-swatch weekend-swatch"></i> Saturday / Sunday</span>
+		<span><i class="legend-swatch approved-swatch"></i> Approved leave</span>
+		<span><i class="legend-swatch pending-swatch"></i> Pending leave</span>
+	</div>
+</div>
+{% endblock %}
