@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'CrewConnect',
         'USER': 'root',
-        'PASSWORD': 'Bhuvan11042004@',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {}
@@ -149,7 +149,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'bhuvanbestha2004@gmail.com'
-EMAIL_HOST_PASSWORD = 'fhekjyjpjdntbacd'
+EMAIL_HOST_USER = 'enter email'
+EMAIL_HOST_PASSWORD = 'enter code'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
